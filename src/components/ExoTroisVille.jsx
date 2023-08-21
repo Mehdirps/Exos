@@ -44,6 +44,7 @@ const ExoTroisVille = () => {
                         }
                     </ul>
             }
+            
             <form action="" onSubmit={(e) => addCity(e)}>
                 <label htmlFor="city">Nom de la ville</label>
                 <input type="text" name='city' id='city' />

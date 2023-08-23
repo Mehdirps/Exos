@@ -6,6 +6,7 @@ import ExoDeux from '../pages/ExoDeux';
 import ExoTrois from '../pages/ExoTrois';
 import ExoQuatre from '../pages/ExoQuatre';
 import ExoCinq from '../pages/ExoCinq';
+import ExoSix from '../pages/ExoSix';
 
 
 const index = () => {
@@ -18,6 +19,7 @@ const index = () => {
                     <Route index path='/exoTrois' element={<ExoTrois />} />
                     <Route index path='/exoQuatre' element={<ExoQuatre />} />
                     <Route index path='/exoCinq' element={<ExoCinq />} />
+                    <Route index path='/exoSix' element={<ExoSix />} />
                 </Route>
             </Routes>
         </BrowserRouter>

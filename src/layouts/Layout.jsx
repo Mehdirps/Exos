@@ -22,6 +22,9 @@ const Layout = () => {
                     <NavLink exact="true" to="/exoCinq">
                         <p>Exo 5</p>
                     </NavLink>
+                    <NavLink exact="true" to="/exoSix">
+                        <p>Exo 6</p>
+                    </NavLink>
                 </nav>
             </header>
             <Outlet />

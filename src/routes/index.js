@@ -7,6 +7,8 @@ import ExoTrois from '../pages/ExoTrois';
 import ExoQuatre from '../pages/ExoQuatre';
 import ExoCinq from '../pages/ExoCinq';
 import ExoSix from '../pages/ExoSix';
+import Login from '../pages/Login';
+import HomePage from '../pages/HomePage';
 
 
 const index = () => {
@@ -14,12 +16,14 @@ const index = () => {
         <BrowserRouter>
             <Routes>
                 <Route element={<Layout />}>
-                    <Route index path='/' element={<ExoUn />} />
-                    <Route index path='/exoDeux' element={<ExoDeux />} />
-                    <Route index path='/exoTrois' element={<ExoTrois />} />
-                    <Route index path='/exoQuatre' element={<ExoQuatre />} />
-                    <Route index path='/exoCinq' element={<ExoCinq />} />
-                    <Route index path='/exoSix' element={<ExoSix />} />
+                    <Route index path='/' element={<HomePage />} />
+                    <Route path='/exoUn' element={<ExoUn />} />
+                    <Route path='/exoDeux' element={<ExoDeux />} />
+                    <Route path='/exoTrois' element={<ExoTrois />} />
+                    <Route path='/exoQuatre' element={<ExoQuatre />} />
+                    <Route path='/exoCinq' element={<ExoCinq />} />
+                    <Route path='/tasklist' element={<ExoSix />} />
+                    <Route path='/login' element={<Login />} />
                 </Route>
             </Routes>
         </BrowserRouter>

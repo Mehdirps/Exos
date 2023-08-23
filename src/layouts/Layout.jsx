@@ -8,6 +8,12 @@ const Layout = () => {
             <header>
                 <nav style={{display: 'flex', gap:'20px'}}>
                     <NavLink exact="true" to="/">
+                        <p>Home page</p>
+                    </NavLink>
+                    <NavLink exact="true" to="/login">
+                        <p>Login</p>
+                    </NavLink>
+                    <NavLink exact="true" to="/exoUn">
                         <p>Exo 1</p>
                     </NavLink>
                     <NavLink exact="true" to="/exoDeux">
@@ -22,8 +28,8 @@ const Layout = () => {
                     <NavLink exact="true" to="/exoCinq">
                         <p>Exo 5</p>
                     </NavLink>
-                    <NavLink exact="true" to="/exoSix">
-                        <p>Exo 6</p>
+                    <NavLink exact="true" to="/tasklist">
+                        <p>Exo 6 : Tasklist</p>
                     </NavLink>
                 </nav>
             </header>

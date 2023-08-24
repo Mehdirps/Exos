@@ -15,15 +15,15 @@ const index = () => {
     return (
         <BrowserRouter>
             <Routes>
+                <Route index element={<Login />} />
                 <Route element={<Layout />}>
-                    <Route index path='/' element={<HomePage />} />
+                    <Route path='/homepage' element={<HomePage />} />
                     <Route path='/exoUn' element={<ExoUn />} />
                     <Route path='/exoDeux' element={<ExoDeux />} />
                     <Route path='/exoTrois' element={<ExoTrois />} />
                     <Route path='/exoQuatre' element={<ExoQuatre />} />
                     <Route path='/exoCinq' element={<ExoCinq />} />
                     <Route path='/tasklist' element={<ExoSix />} />
-                    <Route path='/login' element={<Login />} />
                 </Route>
             </Routes>
         </BrowserRouter>

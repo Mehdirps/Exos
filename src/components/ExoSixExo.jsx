@@ -75,7 +75,7 @@ const ExoSixExo = () => {
                 {
                     tableItems.length > 0 ?
                         tableItems.map((item, i) => (
-                            <ExoSixTableItem key={i} item={item} />
+                            <ExoSixTableItem key={i} item={item} tableItems={tableItems} setTableItems={setTableItems} />
                         ))
 
                         : <p>Aucune tables pour le moment !</p>

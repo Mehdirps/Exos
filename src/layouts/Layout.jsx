@@ -3,14 +3,17 @@ import { Outlet } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 const Layout = () => {
+
+    
+
     return (
         <>
             <header>
                 <nav style={{display: 'flex', gap:'20px'}}>
-                    <NavLink exact="true" to="/">
+                    <NavLink exact="true" to="/homepage">
                         <p>Home page</p>
                     </NavLink>
-                    <NavLink exact="true" to="/login">
+                    <NavLink exact="true" to="/">
                         <p>Login</p>
                     </NavLink>
                     <NavLink exact="true" to="/exoUn">

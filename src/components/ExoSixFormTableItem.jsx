@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const ExoSixFormTableItem = ({ addTable }) => {
 
@@ -7,11 +8,13 @@ const ExoSixFormTableItem = ({ addTable }) => {
     const submit = (e) => {
         e.preventDefault();
         if (name !== '') {
-            const table = {
-                name: name,
-                tasks: []
-            }
-            addTable(table)
+            axios.get(`http://task.cagu0944.odns.fr/tasks/app.php?action=addTable&name=${name}`)
+                .then(response => {
+                    console.log('Table ajouté');
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
         }
     }
 

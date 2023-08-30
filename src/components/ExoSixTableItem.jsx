@@ -1,17 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ExoSixItemTask from './ExoSixItemTask';
+import axios from 'axios';
 
-const ExoSixTableItem = ({ item,tableItems, setTableItems }) => {
+const ExoSixTableItem = ({ item, tableItems, setTableItems, openModal, taskAdded, setTaskAdded, setTaskToUp,setUpdateTaskModal }) => {
+
+    const [tasks, setTasks] = useState([]);
+
+    useEffect(() => {
+        axios.get(`http://task.cagu0944.odns.fr/tasks/app.php?action=getTasksTables&id=${item.id}`)
+            .then(response => {
+                setTasks(response.data);
+                setTaskAdded(false)
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }, [taskAdded]);
+
     return (
-        <div style={{ backgroundColor: 'grey', padding: '15px 15px 50px 15px', borderRadius: '20px', color: 'white', textAlign: 'center' }}>
-            <h2>{item.name}</h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <div className='list'>
+            <header>{item.name}</header>
+            <ul>
                 {
-                    item.tasks.map((task, i) => (
-                        <ExoSixItemTask task={task} key={i} tableItems={tableItems} setTableItems={setTableItems} />
+                    tasks.map((task, i) => (
+                        <ExoSixItemTask task={task} key={i} tableItems={tableItems} setTableItems={setTableItems} setTaskAdded={setTaskAdded} setTaskToUp={setTaskToUp} setUpdateTaskModal={setUpdateTaskModal} />
                     ))
                 }
-            </div>
+            </ul>
+            <footer onClick={() => openModal()}>Ajouter une tache </footer>
         </div>
     );
 };

@@ -8,14 +8,30 @@ const ExoSixAddTask = ({ tableItems, setTableItems, setOpenForm, setTaskAdded })
     const [taskDesc, setTaskDesc] = useState('');
     const [checkbox, setCheckbox] = useState(0);
     const [errorMsg, setErrorMsg] = useState('');
+    const [images, setImages] = useState([]);
+    const userName = localStorage.getItem('name');
+    const id = localStorage.getItem('id');
 
     return (
         <div className='add_modal'>
             <form className='add_task_modal' action="" style={{ margin: '50px' }} onSubmit={(e) => {
                 e.preventDefault();
                 if (tableId !== '' && taskName !== '' && localStorage.getItem('token') !== '') {
-                    axios.get(`http://task.cagu0944.odns.fr/tasks/app.php?action=addTask&taskname=${taskName}&desc=${taskDesc}&table_id=${tableId}&urgent=${checkbox}`)
-                        .then(response => {
+                    axios.post('http://task.cagu0944.odns.fr/tasks/app.php', {
+                        name: taskName,
+                        description: taskDesc,
+                        table_id: tableId,
+                        urgent: checkbox,
+                        user: userName,
+                        userId: id,
+                        addTask: 'addTask',
+                        image: images
+                    }, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                        .then((response) => {
                             setTableId('');
                             setTaskName('');
                             setTaskDesc('');
@@ -64,6 +80,14 @@ const ExoSixAddTask = ({ tableItems, setTableItems, setOpenForm, setTaskAdded })
                         }
                     }} />
                 </div>
+                <br />
+                <div>
+                    <label htmlFor="img">Images</label>
+                    <input type="file" name="img" id="img" multiple onChange={(e) => {
+                        setImages([...e.target.files]);
+                    }} />
+                </div>
+                <br />
                 <button>Ajouter</button>
                 <button style={{ margin: '10px' }} onClick={(e) => {
                     e.preventDefault();
@@ -71,7 +95,7 @@ const ExoSixAddTask = ({ tableItems, setTableItems, setOpenForm, setTaskAdded })
                 }}>Annuler</button>
             </form>
             <div className="opacity_modal"></div>
-        </div>
+        </div >
     );
 };
 

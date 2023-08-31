@@ -6,13 +6,13 @@ import { useNavigate } from 'react-router-dom';
 const Layout = () => {
 
     const navigate = useNavigate();
-    const userName = localStorage.getItem('name');
+    const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
 
     const [change, setChange] = useState(false);
 
     useEffect(() => {
-        axios.get(`http://task.cagu0944.odns.fr/tasks/app.php?action=checkToken&userNameCheck=${userName}&token=${token}`)
+        axios.get(`http://task.cagu0944.odns.fr/tasks/app.php?action=checkToken&userNameCheck=${id}&token=${token}`)
             .then(response => {
                 if (!response.data) {
                     navigate('/');

@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-const ExoSixItemTask = ({ task, tableItems, setTableItems, setTaskAdded, setTaskToUp,setUpdateTaskModal }) => {
+const ExoSixItemTask = ({ task, tableItems, setTableItems, setTaskAdded, setTaskToUp, setUpdateTaskModal, setTaskToSee, setOpenDetailsModal }) => {
     const deleteTask = (task) => {
 
         axios.get(`http://task.cagu0944.odns.fr/tasks/app.php?action=deleteTask&id_task=${task}`)
@@ -13,13 +13,40 @@ const ExoSixItemTask = ({ task, tableItems, setTableItems, setTaskAdded, setTask
                 console.error('Error fetching data:', error);
             });
     }
+    let taskImages = [];
+    if (task.images) {
+        taskImages = JSON.parse(task.images);
+    }
+
 
     return (
         <li>
-            <p><strong>{task.name} {task.urgent == 1 ? <svg style={{fill:'red'}} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-flag-fill" viewBox="0 0 16 16">
-  <path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001"/>
-</svg> : null}</strong></p>
-            <small  style={{opacity:'0.8'}}><em>{task.description}</em></small>
+            {
+                taskImages.length > 0 ?
+                
+                    <a href={'http://task.cagu0944.odns.fr/tasks/uploads/' + taskImages[0]}><img style={{ height: '75px', objectFit: 'cover',objectPosition:'top' }} src={'http://task.cagu0944.odns.fr/tasks/uploads/' + taskImages[0]} alt={`Pic `} /></a>
+                    : null
+            }
+            <p style={{ cursor: 'pointer' }} onClick={() => {
+                setTaskToSee(task)
+                setOpenDetailsModal(true)
+            }}><strong>{task.name} {task.urgent == 1 ? <svg style={{ fill: 'red' }} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-flag-fill" viewBox="0 0 16 16">
+                <path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001" />
+            </svg> : null}</strong></p>
+            {
+                task.description ? <svg style={{ margin: '0 10px 0 0' }} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-card-text" viewBox="0 0 16 16">
+                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+                    <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
+                </svg> : null
+            }
+            {
+                taskImages.length > 0 ?
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-paperclip" viewBox="0 0 16 16">
+                        <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
+                    </svg>
+                    : null
+            }
+            {/* <small  style={{opacity:'0.8'}}><em>{task.description}</em></small> */}
             <span className='update_task' onClick={() => {
                 setTaskToUp(task);
                 setUpdateTaskModal(true);

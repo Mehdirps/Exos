@@ -8,13 +8,30 @@ const ExoSixUpdateTask = ({ tableItems, setTableItems, setOpenForm, setTaskAdded
     const [taskDesc, setTaskDesc] = useState(taskToUp.description);
     const [errorMsg, setErrorMsg] = useState('');
     const [checkbox, setCheckbox] = useState(taskToUp.urgent);
+    const [images, setImages] = useState([]);
 
+    let taskImages = [];
+    if (taskToUp.images) {
+        taskImages = JSON.parse(taskToUp.images);
+    }
     return (
         <div className='add_modal'>
             <form className='add_task_modal' action="" style={{ margin: '50px' }} onSubmit={(e) => {
                 e.preventDefault();
                 if (tableId !== '' && taskName !== '' && localStorage.getItem('token') !== '') {
-                    axios.get(`http://task.cagu0944.odns.fr/tasks/app.php?action=updateTask&tasknameUp=${taskName}&descUp=${taskDesc}&table_idUp=${tableId}&id_taskUp=${taskToUp.id}&urgentUp=${checkbox}`)
+                    axios.post('http://task.cagu0944.odns.fr/tasks/app.php', {
+                        name: taskName,
+                        description: taskDesc,
+                        table_id: tableId,
+                        urgent: checkbox,
+                        id: taskToUp.id,
+                        upTask: 'upTask',
+                        image: images
+                    }, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
                         .then(response => {
                             setTaskToUp([]);
                             setTaskAdded(true);
@@ -56,7 +73,7 @@ const ExoSixUpdateTask = ({ tableItems, setTableItems, setOpenForm, setTaskAdded
                 <div style={{ margin: '20px 0' }}>
                     <label htmlFor="desc">Description de la tache</label>
                     <br />
-                    <textarea name="" id="desc" defaultValue={taskToUp.description} onChange={(e) => setTaskDesc(e.target.value)} cols="30" rows="10"></textarea>
+                    <textarea name="" id="desc" defaultValue={taskToUp.description} onChange={(e) => setTaskDesc(e.target.value)} cols="30" rows="3"></textarea>
                 </div>
                 <div>
                     <label htmlFor="checkbox">Urgent ?</label>
@@ -68,6 +85,29 @@ const ExoSixUpdateTask = ({ tableItems, setTableItems, setOpenForm, setTaskAdded
                         }
                     }} />
                 </div>
+                <br />
+                {
+                    taskImages.length > 0 ?
+                        <div className="images">
+                            <h3>Pièces jointes</h3>
+                            <div className="images-container" style={{ backgroundColor: '#e3e3e3', borderRadius: '10px' }}>
+                                {
+                                    taskImages.map((image, index) => (
+                                        <img key={index} src={'http://task.cagu0944.odns.fr/tasks/uploads/' + image} style={{ width: '50px', margin: "10px" }} alt={`Pic ${index}`} />
+                                    ))
+                                }
+                            </div>
+                        </div>
+                        : null
+                }
+                <div>
+                    <label htmlFor="img">Ajouter des pièces jointes</label>
+                    <br />
+                    <input type="file" name="img" id="img" multiple onChange={(e) => {
+                        setImages([...e.target.files]);
+                    }} />
+                </div>
+                <br />
                 <button>Modifier</button>
                 <button style={{ margin: '10px' }} onClick={(e) => {
                     e.preventDefault();

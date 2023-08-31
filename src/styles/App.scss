@@ -164,18 +164,100 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: -10px;
 
     .opacity_modal {
         position: absolute;
         inset: 0;
         background-color: rgba(0, 0, 0, 0.50);
     }
-    .add_task_modal{
+
+    .add_task_modal {
         z-index: 10;
         padding: 30px;
         text-align: center;
         border-radius: 20px;
         background-color: white;
         color: black;
+        width: 80%;
+        max-width: 700px;
+
+        textarea {
+            width: 100%;
+        }
     }
+}
+
+.details_modal {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -10px;
+
+    .details {
+        z-index: 10;
+        padding: 20px;
+        background-color: white;
+        border-radius: 20px;
+        color: black;
+        width: 80%;
+        max-width: 700px;
+    }
+
+    .opacity_modal {
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.50);
+    }
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #e3e3e3;
+
+    .card {
+        width: 300px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    h2 {
+        color: #2fc2e2;
+        margin-bottom: 20px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        text-align: left;
+        margin-bottom: 5px;
+    }
+
+    input {
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    button {
+        padding: 10px;
+        background-color: #2fc2e2;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
 }
